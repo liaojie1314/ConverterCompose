@@ -16,7 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalAnimationApi::class)
+@ExperimentalAnimationApi
 @Composable
 fun DropDownBox(
     dropDownList: List<String>,
@@ -27,30 +27,33 @@ fun DropDownBox(
     expandStatus: (Boolean) -> Unit = {},
     valueChange: (String) -> Unit = {}
 ) {
-    Column(modifier = Modifier
-        .border(
-            width = 2.dp,
-            color = MaterialTheme.colors.primary,
-            shape = RoundedCornerShape(10.dp)
-        )
-        .padding(
-            vertical = 5.dp,
-            horizontal = 10.dp
-        )
-        .clickable {
-            expandStatus(!isExpanded)
-        }) {
-        Row(
+    Column {
+        Box(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (textValue.isBlank()) {
-                Text(
-                    text = labelText,
-                    color = Color.Gray
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colors.primary,
+                    shape = RoundedCornerShape(10.dp)
                 )
+                .padding(
+                    vertical = 5.dp,
+                    horizontal = 10.dp
+                )
+                .clickable {
+                    expandStatus(!isExpanded)
+                }
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (textValue.isBlank())
+                    Text(
+                        text = labelText,
+                        color = Color.Gray
+                    )
                 Text(text = textValue)
                 IconButton(onClick = {
                     expandStatus(!isExpanded)
@@ -63,6 +66,7 @@ fun DropDownBox(
                 }
             }
         }
+
         AnimatedVisibility(visible = isExpanded) {
             Card(
                 modifier = Modifier
@@ -90,6 +94,7 @@ fun DropDownBox(
                                 style = MaterialTheme.typography.body1
                             )
                         }
+
                     }
                 }
             }

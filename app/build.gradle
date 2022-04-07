@@ -6,6 +6,9 @@ plugins {
 android {
     compileSdk 31
 
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     defaultConfig {
         applicationId "com.example.unitconvertercompose"
         minSdk 21
